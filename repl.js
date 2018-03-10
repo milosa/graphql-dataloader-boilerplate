@@ -65,7 +65,7 @@ let _eval;
     repl.eval = myEval;
 
     repl.context.M = M;
-    // repl.context.generateToken = generateToken;
+    repl.context.generateToken = generateToken;
 
     history(repl, `${process.env.HOME}/.node_history`);
 
