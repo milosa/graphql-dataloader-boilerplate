@@ -2,7 +2,7 @@
 import 'babel-polyfill';
 import { createServer } from 'http';
 import app from './app';
-import connectDatabase from './database';
+import { connectDatabase } from './database';
 import { graphqlPort } from './config';
 
 import { SubscriptionServer } from 'subscriptions-transport-ws';

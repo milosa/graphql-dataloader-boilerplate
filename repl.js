@@ -7,7 +7,7 @@ import history from 'repl.history';
 // import babel from 'babel-core';
 const babel = require('babel-core');
 
-import connectDatabase from './src/database';
+import { connectDatabase } from './src/database';
 import * as M from './src/model';
 import { generateToken } from './src/auth';
 
@@ -34,10 +34,19 @@ function preprocess(input) {
 
 function myEval(cmd, context, filename, callback) {
   const code = babel.transform(preprocess(cmd), {
-    plugins: [
-      ['transform-flow-strip-types'],
+    plugins: [['transform-flow-strip-types']],
+    presets: [
+      [
+        'env',
+        {
+          targets: {
+            node: 'current',
+          },
+        },
+      ],
+      'stage-0',
+      'flow',
     ],
-    presets: ['es2015', 'stage-0'],
   }).code;
   _eval(code, context, filename, callback);
 }
@@ -56,7 +65,7 @@ let _eval;
     repl.eval = myEval;
 
     repl.context.M = M;
-    repl.context.generateToken = generateToken;
+    // repl.context.generateToken = generateToken;
 
     history(repl, `${process.env.HOME}/.node_history`);
 
@@ -66,5 +75,3 @@ let _eval;
     process.exit(1);
   }
 })();
-
-

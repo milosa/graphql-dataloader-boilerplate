@@ -48,6 +48,16 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@babel/plugin-syntax-flow@7.0.0-beta.40":
+  version "7.0.0-beta.40"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-flow/-/plugin-syntax-flow-7.0.0-beta.40.tgz#2326da177cd83ad3d12e8324ad003edb702c384c"
+
+"@babel/plugin-transform-flow-strip-types@^7.0.0-beta.40":
+  version "7.0.0-beta.40"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-flow-strip-types/-/plugin-transform-flow-strip-types-7.0.0-beta.40.tgz#fe3afe922de6dfbd21d9f53f01cbe1bac89e0423"
+  dependencies:
+    "@babel/plugin-syntax-flow" "7.0.0-beta.40"
+
 "@babel/template@7.0.0-beta.40":
   version "7.0.0-beta.40"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0-beta.40.tgz#034988c6424eb5c3268fe6a608626de1f4410fc8"
@@ -4723,9 +4733,9 @@ regjsparser@^0.1.4:
   dependencies:
     jsesc "~0.5.0"
 
-reify@^0.13.5:
-  version "0.13.5"
-  resolved "https://registry.yarnpkg.com/reify/-/reify-0.13.5.tgz#f4ae9a3313079fead8135d0e1e9f4f005b880490"
+reify@^0.14.2:
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/reify/-/reify-0.14.2.tgz#75094706d06159e0b4762073d7dd590aa43ce3ea"
   dependencies:
     acorn "^5.2.1"
     minizlib "^1.0.4"
