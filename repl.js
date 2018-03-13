@@ -34,8 +34,8 @@ function preprocess(input) {
 
 function myEval(cmd, context, filename, callback) {
   const code = babel.transform(preprocess(cmd), {
-    plugins: [['transform-flow-strip-types']],
     presets: [
+      'flow',
       [
         'env',
         {
@@ -44,9 +44,8 @@ function myEval(cmd, context, filename, callback) {
           },
         },
       ],
-      'stage-0',
-      'flow',
     ],
+    plugins: [['babel-plugin-transform-flow-strip-types']],
   }).code;
   _eval(code, context, filename, callback);
 }
@@ -65,7 +64,7 @@ let _eval;
     repl.eval = myEval;
 
     repl.context.M = M;
-    // repl.context.generateToken = generateToken;
+    repl.context.generateToken = generateToken;
 
     history(repl, `${process.env.HOME}/.node_history`);
 
