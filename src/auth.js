@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { User } from './model';
 import { jwtSecret } from './config';
 
-export async function getUser(token) {
+export async function getUser(token: string) {
   if (!token) return { user: null };
 
   try {
@@ -20,6 +20,10 @@ export async function getUser(token) {
   }
 }
 
-export function generateToken(user) {
+type UserType = {
+  _id: string,
+};
+
+export function generateToken(user: UserType) {
   return `JWT ${jwt.sign({ id: user._id }, jwtSecret)}`;
 }

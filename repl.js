@@ -1,4 +1,4 @@
-import 'reify/repl';
+import 'esm';
 import 'isomorphic-fetch';
 import 'babel-polyfill';
 import REPL from 'repl';
