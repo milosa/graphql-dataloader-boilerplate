@@ -3,7 +3,7 @@
 import mongoose from 'mongoose';
 import { databaseConfig } from './config';
 
-export default function connectDatabase() {
+export function connectDatabase() {
   return new Promise((resolve, reject) => {
     mongoose.Promise = global.Promise;
     mongoose.connection

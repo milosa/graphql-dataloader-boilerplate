@@ -1,4 +1,4 @@
-import 'reify/repl';
+import 'esm';
 import 'isomorphic-fetch';
 import 'babel-polyfill';
 import REPL from 'repl';
@@ -7,7 +7,7 @@ import history from 'repl.history';
 // import babel from 'babel-core';
 const babel = require('babel-core');
 
-import connectDatabase from './src/database';
+import { connectDatabase } from './src/database';
 import * as M from './src/model';
 import { generateToken } from './src/auth';
 
@@ -34,10 +34,18 @@ function preprocess(input) {
 
 function myEval(cmd, context, filename, callback) {
   const code = babel.transform(preprocess(cmd), {
-    plugins: [
-      ['transform-flow-strip-types'],
+    presets: [
+      'flow',
+      [
+        'env',
+        {
+          targets: {
+            node: 'current',
+          },
+        },
+      ],
     ],
-    presets: ['es2015', 'stage-0'],
+    plugins: [['babel-plugin-transform-flow-strip-types']],
   }).code;
   _eval(code, context, filename, callback);
 }
@@ -66,5 +74,3 @@ let _eval;
     process.exit(1);
   }
 })();
-
-
