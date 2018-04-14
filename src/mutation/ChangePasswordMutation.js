@@ -47,7 +47,7 @@ export default mutationWithClientMutationId({
     },
     me: {
       type: UserType,
-      resolve: (obj, args, context) => UserLoader.load(context, user.id),
+      resolve: (obj, args, context) => UserLoader.load(context, context.user.id),
     },
   },
 });
