@@ -1,18 +1,23 @@
 import { graphql } from 'graphql';
+
 import { schema } from '../../schema';
-import {
-  User,
-} from '../../model';
 import { generateToken } from '../../auth';
 import {
   getContext,
-  setupTest,
+  connectMongoose,
+  clearDbAndRestartCounters,
+  disconnectMongoose,
+  createRows,
 } from '../../../test/helper';
 
-beforeEach(async () => await setupTest());
+beforeAll(connectMongoose);
+
+beforeEach(clearDbAndRestartCounters);
+
+afterAll(disconnectMongoose);
 
 it('should not login if email is not in the database', async () => {
-  //language=GraphQL
+  // language=GraphQL
   const query = `
     mutation M {
       LoginEmail(input: {
@@ -33,25 +38,19 @@ it('should not login if email is not in the database', async () => {
   const result = await graphql(schema, query, rootValue, context);
   const { LoginEmail } = result.data;
 
-
   expect(LoginEmail.token).toBe(null);
   expect(LoginEmail.error).toBe('INVALID_EMAIL_PASSWORD');
 });
 
-it('should not login with wrong email', async () => {
-  const user = new User({
-    name: 'user',
-    email: 'awesome@example.com',
-    password: 'awesome',
-  });
-  await user.save();
+it('should not login with wrong password', async () => {
+  const user = await createRows.createUser();
 
-  //language=GraphQL
+  // language=GraphQL
   const query = `
     mutation M {
       LoginEmail(input: {
         clientMutationId: "abc"
-        email: "awesome@example.com"
+        email: "${user.email}"
         password: "notawesome"
       }) {
         clientMutationId
@@ -72,22 +71,15 @@ it('should not login with wrong email', async () => {
 });
 
 it('should generate token when email and password is correct', async () => {
-  const email = 'awesome@example.com';
   const password = 'awesome';
+  const user = await createRows.createUser({ password });
 
-  const user = new User({
-    name: 'user',
-    email,
-    password,
-  });
-  await user.save();
-
-  //language=GraphQL
+  // language=GraphQL
   const query = `
     mutation M {
       LoginEmail(input: {
         clientMutationId: "abc"
-        email: "${email}"
+        email: "${user.email}"
         password: "${password}"
       }) {
         clientMutationId

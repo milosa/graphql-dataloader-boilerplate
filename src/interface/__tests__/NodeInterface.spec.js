@@ -1,20 +1,25 @@
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
-import { schema } from '../../schema';
-import { User } from '../../model';
-import { getContext, setupTest } from '../../../test/helper';
 
-beforeEach(async () => await setupTest());
+import { schema } from '../../schema';
+import {
+  getContext,
+  connectMongoose,
+  clearDbAndRestartCounters,
+  disconnectMongoose,
+  createRows,
+} from '../../../test/helper';
+
+beforeAll(connectMongoose);
+
+beforeEach(clearDbAndRestartCounters);
+
+afterAll(disconnectMongoose);
 
 it('should load User', async () => {
-  const user = new User({
-    name: 'user',
-    email: 'user@example.com',
-    password: '123',
-  });
-  await user.save();
+  const user = await createRows.createUser();
 
-  //language=GraphQL
+  // language=GraphQL
   const query = `
     query Q {
       node(id: "${toGlobalId('User', user._id)}") {

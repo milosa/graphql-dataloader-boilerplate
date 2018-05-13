@@ -1,14 +1,16 @@
 import mongoose from 'mongoose';
-import { graphql } from 'graphql';
-import { schema } from '../schema';
-import { User } from '../model';
-import { setupTest } from '../../test/helper';
 
 import { getUser, generateToken } from '../auth';
 
+import { connectMongoose, clearDbAndRestartCounters, disconnectMongoose, createRows } from '../../test/helper';
+
 const { ObjectId } = mongoose.Types;
 
-beforeEach(async () => await setupTest());
+beforeAll(connectMongoose);
+
+beforeEach(clearDbAndRestartCounters);
+
+afterAll(disconnectMongoose);
 
 describe('getUser', () => {
   it('should return an user null when token is null', async () => {
@@ -33,12 +35,7 @@ describe('getUser', () => {
   });
 
   it('should return user from a valid token', async () => {
-    const me = new User({
-      name: 'user',
-      email: 'user@example.com',
-      password: '123',
-    });
-    await me.save();
+    const me = await createRows.createUser();
 
     const token = generateToken(me);
     const { user } = await getUser(token);
