@@ -6,7 +6,10 @@ const copySchemaToProject = async () => {
 
     console.info('Schema successfully copied to ReactNavigationRelayModern');
   } catch (error) {
-    console.error('There was an error while trying to copy schema to ReactNavigationRelayModern', error);
+    console.error(
+      'You can setup scripts/copySchemaToProject to automatically copy the schema to other projects that should be kept in sync',
+      error,
+    );
   }
 };
 
