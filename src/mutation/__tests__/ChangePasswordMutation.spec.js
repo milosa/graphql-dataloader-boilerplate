@@ -1,18 +1,23 @@
 import { graphql } from 'graphql';
+
 import { schema } from '../../schema';
-import {
-  User,
-} from '../../model';
 import { generateToken } from '../../auth';
 import {
   getContext,
-  setupTest,
+  connectMongoose,
+  clearDbAndRestartCounters,
+  disconnectMongoose,
+  createRows,
 } from '../../../test/helper';
 
-beforeEach(async () => await setupTest());
+beforeAll(connectMongoose);
+
+beforeEach(clearDbAndRestartCounters);
+
+afterAll(disconnectMongoose);
 
 it('should not change password of non authorized user', async () => {
-  //language=GraphQL
+  // language=GraphQL
   const query = `
     mutation M {
       ChangePassword(input: {
@@ -32,19 +37,14 @@ it('should not change password of non authorized user', async () => {
   const result = await graphql(schema, query, rootValue, context);
   const { errors } = result;
 
-  expect(errors.length).toBe(1)
+  expect(errors.length).toBe(1);
   expect(errors[0].message).toBe('invalid user');
 });
 
 it('should not change password if oldPassword is invalid', async () => {
-  const user = new User({
-    name: 'user',
-    email: 'awesome@example.com',
-    password: 'awesome',
-  });
-  await user.save();
+  const user = await createRows.createUser();
 
-  //language=GraphQL
+  // language=GraphQL
   const query = `
     mutation M {
       ChangePassword(input: {
@@ -69,15 +69,9 @@ it('should not change password if oldPassword is invalid', async () => {
 
 it('should change password if oldPassword is correct', async () => {
   const password = 'awesome';
+  const user = await createRows.createUser({ password });
 
-  const user = new User({
-    name: 'user',
-    email: 'awesome@example.com',
-    password,
-  });
-  await user.save();
-
-  //language=GraphQL
+  // language=GraphQL
   const query = `
     mutation M {
       ChangePassword(input: {

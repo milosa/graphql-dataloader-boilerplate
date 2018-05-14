@@ -1,34 +1,32 @@
 import { graphql } from 'graphql';
+
+import { User } from '../../model';
 import { schema } from '../../schema';
-import {
-  User,
-} from '../../model';
 import { generateToken } from '../../auth';
 import {
   getContext,
-  setupTest,
+  connectMongoose,
+  clearDbAndRestartCounters,
+  disconnectMongoose,
+  createRows,
 } from '../../../test/helper';
 
-beforeEach(async () => await setupTest());
+beforeAll(connectMongoose);
 
-it('should not register with the an existing email', async () => {
-  const name = 'awesome';
-  const email = 'awesome@example.com';
+beforeEach(clearDbAndRestartCounters);
 
-  const user = new User({
-    name,
-    email,
-    password: '123',
-  });
-  await user.save();
+afterAll(disconnectMongoose);
 
-  //language=GraphQL
+it('should not register with an existing email', async () => {
+  const user = await createRows.createUser();
+
+  // language=GraphQL
   const query = `
     mutation M {
       RegisterEmail(input: {
         clientMutationId: "abc"
         name: "Awesome"
-        email: "${email}"
+        email: "${user.email}"
         password: "awesome"
       }) {
         clientMutationId
@@ -48,10 +46,10 @@ it('should not register with the an existing email', async () => {
   expect(RegisterEmail.error).toBe('EMAIL_ALREADY_IN_USE');
 });
 
-it('should create a new user with parameters are valid', async () => {
+it('should create a new user when parameters are valid', async () => {
   const email = 'awesome@example.com';
 
-  //language=GraphQL
+  // language=GraphQL
   const query = `
     mutation M {
       RegisterEmail(input: {
