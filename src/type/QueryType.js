@@ -4,10 +4,10 @@ import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } from 'gra
 import { globalIdField, connectionArgs, fromGlobalId } from 'graphql-relay';
 import { NodeInterface } from '../interface/NodeInterface';
 
-import UserType from './UserType';
+import UserType from '../modules/user/UserType';
 import { NodeField } from '../interface/NodeInterface';
 import { UserLoader } from '../loader';
-import UserConnection from '../connection/UserConnection';
+import UserConnection from '../modules/user/UserConnection';
 
 export default new GraphQLObjectType({
   name: 'Query',

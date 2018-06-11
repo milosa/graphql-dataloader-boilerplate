@@ -1,12 +1,7 @@
-import {
-  GraphQLString,
-  GraphQLNonNull,
-} from 'graphql';
-import {
-  mutationWithClientMutationId,
-} from 'graphql-relay';
+import { GraphQLString, GraphQLNonNull } from 'graphql';
+import { mutationWithClientMutationId } from 'graphql-relay';
 
-import UserType from '../type/UserType';
+import UserType from '../modules/user/UserType';
 import { UserLoader } from '../loader';
 
 export default mutationWithClientMutationId({

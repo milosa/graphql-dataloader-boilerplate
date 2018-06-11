@@ -1,6 +1,6 @@
 import { GraphQLObjectType } from 'graphql';
 import { offsetToCursor } from 'graphql-relay';
-import UserConnection from '../connection/UserConnection';
+import UserConnection from '../modules/user/UserConnection';
 
 import pubSub, { EVENTS } from '../pubSub';
 

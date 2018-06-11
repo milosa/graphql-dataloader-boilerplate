@@ -1,10 +1,10 @@
 // @flow
 import DataLoader from 'dataloader';
-import { User as UserModel } from '../model';
+import { User as UserModel } from '../../model/index';
 import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongoose-loader';
 
 import type { ConnectionArguments } from 'graphql-relay';
-import type { GraphQLContext } from '../TypeDefinition';
+import type { GraphQLContext } from '../../TypeDefinition';
 
 type UserType = {
   id: string,

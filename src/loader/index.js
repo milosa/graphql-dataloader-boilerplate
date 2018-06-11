@@ -1,1 +1,1 @@
-export * as UserLoader from './UserLoader';
+export * as UserLoader from '../modules/user/UserLoader';
