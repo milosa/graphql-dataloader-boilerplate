@@ -1,31 +1,16 @@
 // @flow
+import { fromGlobalId, nodeDefinitions } from 'graphql-relay';
+import type { GraphQLObjectType } from 'graphql';
 
-import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
+const registeredTypes = {};
 
-import User from '../modules/user/UserLoader';
-import { UserLoader } from '../loader';
+export function registerType(type: GraphQLObjectType) {
+  registeredTypes[type.name] = type;
+  return type;
+}
 
-import QueryType from '../type/QueryType';
-import UserType from '../modules/user/UserType';
-
-const { nodeField, nodeInterface } = nodeDefinitions(
-  // A method that maps from a global id to an object
-  async (globalId, context) => {
-    const { id, type } = fromGlobalId(globalId);
-
-    // console.log('id, type: ', type, id, globalId);
-    if (type === 'User') {
-      return await UserLoader.load(context, id);
-    }
-  },
-  // A method that maps from an object to a type
-  obj => {
-    // console.log('obj: ', typeof obj, obj.constructor);
-    if (obj instanceof User) {
-      return UserType;
-    }
-  },
-);
-
-export const NodeInterface = nodeInterface;
-export const NodeField = nodeField;
+export const { nodeField, nodeInterface } = nodeDefinitions((globalId, context) => {
+  const { type, id } = fromGlobalId(globalId);
+  const loader = context.dataloaders[`${type}Loader`];
+  return (loader && loader.load(id)) || null;
+}, object => registeredTypes[object.constructor.name] || null);

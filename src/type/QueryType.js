@@ -1,11 +1,10 @@
 // @flow
 
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql';
-import { globalIdField, connectionArgs, fromGlobalId } from 'graphql-relay';
-import { NodeInterface } from '../interface/NodeInterface';
+import { connectionArgs, fromGlobalId } from 'graphql-relay';
 
 import UserType from '../modules/user/UserType';
-import { NodeField } from '../interface/NodeInterface';
+import { nodeField } from '../interface/NodeInterface';
 import { UserLoader } from '../loader';
 import UserConnection from '../modules/user/UserConnection';
 
@@ -13,7 +12,7 @@ export default new GraphQLObjectType({
   name: 'Query',
   description: 'The root of all... queries',
   fields: () => ({
-    node: NodeField,
+    node: nodeField,
     me: {
       type: UserType,
       resolve: (root, args, context) => (context.user ? UserLoader.load(context, context.user._id) : null),
