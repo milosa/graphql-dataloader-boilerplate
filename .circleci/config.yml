@@ -76,6 +76,8 @@ jobs:
       - restore_cache: *restore-mongodb-binaries-cache
       - run: *test
       - save_cache: *save-mongodb-binaries-cache
+      - store_artifacts:
+          path: ./flow.log
       - store_test_results:
           path: ./test-results
 
