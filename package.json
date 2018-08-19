@@ -79,7 +79,7 @@
   "scripts": {
     "build": "npm run clear && babel src --ignore *.spec.js --out-dir dist --copy-files",
     "clear": "rimraf ./dist",
-    "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "flow": "flow",
     "flow-log": "yarn flow --show-all-errors > flow.log",
     "lint": "eslint src/**",
     "precommit": "lint-staged",
