@@ -1,6 +1,6 @@
 import { graphql } from 'graphql';
 
-import { User } from '../../../../model/index';
+import UserModel from '../../UserModel';
 import { schema } from '../../../../schema';
 import { generateToken } from '../../../../auth';
 import {
@@ -22,14 +22,16 @@ it('should not register with an existing email', async () => {
 
   // language=GraphQL
   const query = `
-    mutation M {
-      RegisterEmail(input: {
-        clientMutationId: "abc"
-        name: "Awesome"
-        email: "${user.email}"
-        password: "awesome"
+    mutation M(
+      $name: String!
+      $email: String!
+      $password: String!
+    ) {
+      UserRegisterWithEmail(input: {
+        name: $name
+        email: $email
+        password: $password
       }) {
-        clientMutationId
         token
         error
       }     
@@ -38,12 +40,15 @@ it('should not register with an existing email', async () => {
 
   const rootValue = {};
   const context = getContext();
+  const variables = {
+    name: 'Test',
+    email: user.email,
+    password: '123',
+  };
 
-  const result = await graphql(schema, query, rootValue, context);
-  const { RegisterEmail } = result.data;
-
-  expect(RegisterEmail.token).toBe(null);
-  expect(RegisterEmail.error).toBe('EMAIL_ALREADY_IN_USE');
+  const result = await graphql(schema, query, rootValue, context, variables);
+  expect(result.data.UserRegisterWithEmail.token).toBe(null);
+  expect(result.data.UserRegisterWithEmail.error).toBe('Email already in use');
 });
 
 it('should create a new user when parameters are valid', async () => {
@@ -51,31 +56,37 @@ it('should create a new user when parameters are valid', async () => {
 
   // language=GraphQL
   const query = `
-    mutation M {
-      RegisterEmail(input: {
-        clientMutationId: "abc"
-        name: "Awesome"
-        email: "${email}"
-        password: "awesome"
+    mutation M(
+      $name: String!
+      $email: String!
+      $password: String!
+    ) {
+      UserRegisterWithEmail(input: {
+        name: $name
+        email: $email
+        password: $password
       }) {
-        clientMutationId
         token
         error
-      }     
+      }
     }
   `;
 
   const rootValue = {};
   const context = getContext();
+  const variables = {
+    name: 'Test',
+    email,
+    password: '123',
+  };
 
-  const result = await graphql(schema, query, rootValue, context);
-  const { RegisterEmail } = result.data;
+  const result = await graphql(schema, query, rootValue, context, variables);
+  expect(result.data.UserRegisterWithEmail.token).not.toBe(null);
+  expect(result.data.UserRegisterWithEmail.error).toBe(null);
 
-  const user = await User.findOne({
+  const user = await UserModel.findOne({
     email,
   });
 
   expect(user).not.toBe(null);
-  expect(RegisterEmail.token).toBe(generateToken(user));
-  expect(RegisterEmail.error).toBe(null);
 });

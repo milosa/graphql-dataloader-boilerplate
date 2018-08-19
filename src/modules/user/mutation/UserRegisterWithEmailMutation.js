@@ -25,8 +25,7 @@ export default mutationWithClientMutationId({
 
     if (user) {
       return {
-        token: null,
-        error: 'EMAIL_ALREADY_IN_USE',
+        error: 'Email already in use',
       };
     }
 

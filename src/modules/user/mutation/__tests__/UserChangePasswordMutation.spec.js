@@ -19,12 +19,12 @@ it('should not change password of non authorized user', async () => {
   // language=GraphQL
   const query = `
     mutation M(
-      $old: String!
-      $new: String!
+      $oldPassword: String!
+      $password: String!
     ) {
       UserChangePassword(input: {
-        oldPassword: $old
-        password: $new
+        oldPassword: $oldPassword
+        password: $password
       }) {
         error
       }
@@ -33,38 +33,45 @@ it('should not change password of non authorized user', async () => {
 
   const rootValue = {};
   const context = getContext();
+  const variables = {
+    oldPassword: 'abc',
+    password: 'abc',
+  };
 
-  const result = await graphql(schema, query, rootValue, context);
-  const { errors } = result;
+  const result = await graphql(schema, query, rootValue, context, variables);
 
-  expect(errors.length).toBe(1);
-  expect(errors[0].message).toBe('invalid user');
+  expect(result.errors).toBe(undefined);
+  expect(result.data.UserChangePassword.error).toBe('User not authenticated');
 });
 
 it('should not change password if oldPassword is invalid', async () => {
-  const user = await createRows.createUser();
-
+  await createRows.createUser();
   // language=GraphQL
   const query = `
-    mutation M {
-      ChangePassword(input: {
-        clientMutationId: "abc"
-        oldPassword: "old"
-        password: "new"
+    mutation M(
+      $oldPassword: String!
+      $password: String!
+    ) {
+      UserChangePassword(input: {
+        oldPassword: $oldPassword
+        password: $password
       }) {
-        clientMutationId
         error
       }
     }
   `;
 
   const rootValue = {};
-  const context = getContext({ user });
+  const context = getContext();
+  const variables = {
+    oldPassword: 'abc',
+    password: 'abc',
+  };
 
-  const result = await graphql(schema, query, rootValue, context);
-  const { ChangePassword } = result.data;
+  const result = await graphql(schema, query, rootValue, context, variables);
 
-  expect(ChangePassword.error).toBe('INVALID_PASSWORD');
+  expect(result.errors).toBe(undefined);
+  expect(result.data.UserChangePassword.error).toBe('User not authenticated');
 });
 
 it('should change password if oldPassword is correct', async () => {
@@ -73,13 +80,14 @@ it('should change password if oldPassword is correct', async () => {
 
   // language=GraphQL
   const query = `
-    mutation M {
-      ChangePassword(input: {
-        clientMutationId: "abc"
-        oldPassword: "${password}"
-        password: "new"
+    mutation M(
+      $oldPassword: String!
+      $password: String!
+    ) {
+      UserChangePassword(input: {
+        oldPassword: $oldPassword
+        password: $password
       }) {
-        clientMutationId
         error
       }
     }
@@ -87,9 +95,12 @@ it('should change password if oldPassword is correct', async () => {
 
   const rootValue = {};
   const context = getContext({ user });
+  const variables = {
+    oldPassword: password,
+    password: 'abc',
+  };
 
-  const result = await graphql(schema, query, rootValue, context);
-  const { ChangePassword } = result.data;
+  const result = await graphql(schema, query, rootValue, context, variables);
 
-  expect(ChangePassword.error).toBe(null);
+  expect(result.data.UserChangePassword.error).toBe(null);
 });

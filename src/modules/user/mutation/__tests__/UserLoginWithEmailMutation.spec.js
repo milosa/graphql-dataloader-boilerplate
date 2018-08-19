@@ -1,7 +1,6 @@
 import { graphql } from 'graphql';
 
 import { schema } from '../../../../schema';
-import { generateToken } from '../../../../auth';
 import {
   getContext,
   connectMongoose,
@@ -19,11 +18,13 @@ afterAll(disconnectMongoose);
 it('should not login if email is not in the database', async () => {
   // language=GraphQL
   const query = `
-    mutation M {
-      LoginEmail(input: {
-        clientMutationId: "abc"
-        email: "awesome@example.com"
-        password: "awesome"
+    mutation M(
+      $email: String!
+      $password: String!
+    ) {
+      UserLoginWithEmail(input: {
+        email: $email
+        password: $password
       }) {
         clientMutationId
         token
@@ -34,67 +35,78 @@ it('should not login if email is not in the database', async () => {
 
   const rootValue = {};
   const context = getContext();
+  const variables = {
+    email: 'awesome@example.com',
+    password: 'awesome',
+  };
 
-  const result = await graphql(schema, query, rootValue, context);
-  const { LoginEmail } = result.data;
+  const result = await graphql(schema, query, rootValue, context, variables);
 
-  expect(LoginEmail.token).toBe(null);
-  expect(LoginEmail.error).toBe('INVALID_EMAIL_PASSWORD');
+  expect(result.data.UserLoginWithEmail.token).toBe(null);
+  expect(result.data.UserLoginWithEmail.error).toBe('Invalid password');
 });
 
 it('should not login with wrong password', async () => {
   const user = await createRows.createUser();
-
   // language=GraphQL
   const query = `
-    mutation M {
-      LoginEmail(input: {
-        clientMutationId: "abc"
-        email: "${user.email}"
-        password: "notawesome"
+    mutation M(
+      $email: String!
+      $password: String!
+    ) {
+      UserLoginWithEmail(input: {
+        email: $email
+        password: $password
       }) {
         clientMutationId
         token
         error
-      }     
+      }
     }
   `;
 
   const rootValue = {};
   const context = getContext();
+  const variables = {
+    email: user.email,
+    password: 'awesome',
+  };
 
-  const result = await graphql(schema, query, rootValue, context);
-  const { LoginEmail } = result.data;
+  const result = await graphql(schema, query, rootValue, context, variables);
 
-  expect(LoginEmail.token).toBe(null);
-  expect(LoginEmail.error).toBe('INVALID_EMAIL_PASSWORD');
+  expect(result.data.UserLoginWithEmail.token).toBe(null);
+  expect(result.data.UserLoginWithEmail.error).toBe('Invalid password');
 });
 
 it('should generate token when email and password is correct', async () => {
   const password = 'awesome';
   const user = await createRows.createUser({ password });
-
   // language=GraphQL
   const query = `
-    mutation M {
-      LoginEmail(input: {
-        clientMutationId: "abc"
-        email: "${user.email}"
-        password: "${password}"
+    mutation M(
+      $email: String!
+      $password: String!
+    ) {
+      UserLoginWithEmail(input: {
+        email: $email
+        password: $password
       }) {
         clientMutationId
         token
         error
-      }     
+      }
     }
   `;
 
   const rootValue = {};
   const context = getContext();
+  const variables = {
+    email: user.email,
+    password: 'awesome',
+  };
 
-  const result = await graphql(schema, query, rootValue, context);
-  const { LoginEmail } = result.data;
+  const result = await graphql(schema, query, rootValue, context, variables);
 
-  expect(LoginEmail.token).toBe(generateToken(user));
-  expect(LoginEmail.error).toBe(null);
+  expect(result.data.UserLoginWithEmail.token).not.toBe(null);
+  expect(result.data.UserLoginWithEmail.error).toBe(null);
 });
