@@ -37,13 +37,7 @@ aliases:
   - &test
     name: Run Tests
     command: |
-      TESTFILES=$(circleci tests glob "./src/**/__tests__/*.spec.js" | circleci tests split)
-      echo "All test files:"
-      circleci tests glob "./src/**/__tests__/*.spec.js" | xargs -n 1 echo
-      echo "This job test files:"
-      circleci tests glob "./src/**/__tests__/*.spec.js" | circleci tests split | xargs -n 1 echo
-      echo "Running tests:"
-      JEST_JUNIT_OUTPUT="./test-results/jest/results.xml" yarn jest --maxWorkers=4 --coverage --forceExit --ci ${TESTFILES}
+      yarn jest --maxWorkers=4 --coverage --forceExit --ci
       bash <(curl -s https://codecov.io/bash)
 
   # Job Filters
