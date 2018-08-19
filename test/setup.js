@@ -1,3 +1,3 @@
 module.exports = () => {
-  console.log('\n# GLOBAL TEST SETUP #');
+  // console.log('\n# GLOBAL TEST SETUP #');
 };

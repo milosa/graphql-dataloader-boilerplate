@@ -52,6 +52,8 @@
     "jest": "22.4.3",
     "jest-cli": "22.4.3",
     "jest-fetch-mock": "^1.6.5",
+    "jest-junit": "^5.1.0",
+    "jest-runner-eslint": "^0.6.0",
     "lint-staged": "6.0.0",
     "mongodb-memory-server": "^1.7.3",
     "nodemon": "^1.17.1",
@@ -97,6 +99,7 @@
     "repl": "nodemon --config ./repl/nodemon.json ./repl.js --exec babel-node",
     "start": "node dist/index.js",
     "test": "jest --coverage",
+    "jest:lint": "jest --config jest-eslint.config.js",
     "test:watch": "jest --watch --coverage",
     "update-schema": "babel-node ./scripts/updateSchema.js",
     "watch": "nodemon src/index.js"
