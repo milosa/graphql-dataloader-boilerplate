@@ -1,32 +1,33 @@
 // @flow
 import 'babel-polyfill';
 import { createServer } from 'http';
-import app from './app';
-import { connectDatabase } from './database';
-import { graphqlPort } from './config';
-
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 
+import app from './app';
+import logger, { getConsoleTransport } from './core/logger';
+import { connectDatabase } from './database';
+
 import { schema } from './schema';
+
+logger.add(getConsoleTransport('graphql-main'));
 
 (async () => {
   try {
-    const info = await connectDatabase();
-    console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
+    await connectDatabase();
   } catch (error) {
-    console.error('Unable to connect to database');
-    process.exit(1);
+    logger.error('Could not connect to database', { error });
+    throw error;
   }
 
   const server = createServer(app.callback());
 
-  server.listen(graphqlPort, () => {
-    console.log(`server now listening at :${graphqlPort}`);
+  server.listen(process.env.GRAPHQL_PORT, () => {
+    logger.info(`Server started on port :${process.env.GRAPHQL_PORT}`);
     SubscriptionServer.create(
       {
-        onConnect: connectionParams => console.log('client subscription connected!', connectionParams),
-        onDisconnect: () => console.log('client subscription disconnected!'),
+        onConnect: connectionParams => logger.info('Client subscription connected!', connectionParams),
+        onDisconnect: () => logger.info('Client subscription disconnected!'),
         execute,
         subscribe,
         schema,
@@ -37,6 +38,4 @@ import { schema } from './schema';
       },
     );
   });
-
-  console.log(`Server started on port ${graphqlPort}`);
 })();
