@@ -931,7 +931,7 @@
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "UserAdded",
+                "name": "UserAddedPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -945,7 +945,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "UserAdded",
+          "name": "UserAddedPayload",
           "description": null,
           "fields": [
             {

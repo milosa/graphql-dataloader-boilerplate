@@ -38,7 +38,7 @@ type Query {
 }
 
 type Subscription {
-  UserAdded: UserAdded
+  UserAdded: UserAddedPayload
 }
 
 """User data"""
@@ -51,7 +51,7 @@ type User implements Node {
   active: Boolean
 }
 
-type UserAdded {
+type UserAddedPayload {
   userEdge: UserEdge
 }
 
