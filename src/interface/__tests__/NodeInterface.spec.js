@@ -21,8 +21,9 @@ it('should load User', async () => {
 
   // language=GraphQL
   const query = `
-    query Q {
-      node(id: "${toGlobalId('User', user._id)}") {
+    query Q($id: ID!) {
+      node(id: $id) {
+        id
         ... on User {
           name
         }
@@ -32,9 +33,11 @@ it('should load User', async () => {
 
   const rootValue = {};
   const context = getContext();
+  const variables = {
+    id: toGlobalId('User', user.id),
+  };
 
-  const result = await graphql(schema, query, rootValue, context);
-  const { node } = result.data;
-
-  expect(node.name).toBe(user.name);
+  const result = await graphql(schema, query, rootValue, context, variables);
+  expect(result.data.node.id).toBe(variables.id);
+  expect(result.data.node.name).toBe(user.name);
 });

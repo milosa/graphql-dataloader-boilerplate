@@ -1,11 +1,15 @@
+// @flow
+
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
-import UserType from '../modules/user/UserType';
-import { UserLoader } from '../loader';
+import type { GraphQLContext } from '../../../TypeDefinition';
+
+import UserType from '../UserType';
+import * as UserLoader from '../UserLoader';
 
 export default mutationWithClientMutationId({
-  name: 'ChangePassword',
+  name: 'UserChangePassword',
   inputFields: {
     oldPassword: {
       type: new GraphQLNonNull(GraphQLString),
@@ -15,9 +19,11 @@ export default mutationWithClientMutationId({
       description: 'user new password',
     },
   },
-  mutateAndGetPayload: async ({ oldPassword, password }, { user }) => {
+  mutateAndGetPayload: async ({ oldPassword, password }, { user }: GraphQLContext) => {
     if (!user) {
-      throw new Error('invalid user');
+      return {
+        error: 'User not authenticated',
+      };
     }
 
     const correctPassword = user.authenticate(oldPassword);

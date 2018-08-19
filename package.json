@@ -25,7 +25,9 @@
     "koa-logger": "^3.1.0",
     "koa-router": "^7.4.0",
     "mongoose": "^5.0.8",
-    "subscriptions-transport-ws": "^0.9.6"
+    "pretty-error": "^2.1.1",
+    "subscriptions-transport-ws": "^0.9.6",
+    "winston": "^3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -49,6 +51,9 @@
     "husky": "^0.14.3",
     "jest": "22.4.3",
     "jest-cli": "22.4.3",
+    "jest-fetch-mock": "^1.6.5",
+    "jest-junit": "^5.1.0",
+    "jest-runner-eslint": "^0.6.0",
     "lint-staged": "6.0.0",
     "mongodb-memory-server": "^1.7.3",
     "nodemon": "^1.17.1",
@@ -57,19 +62,6 @@
     "repl-promised": "^0.1.0",
     "repl.history": "^0.1.4",
     "rimraf": "^2.6.2"
-  },
-  "jest": {
-    "testEnvironment": "<rootDir>/test/environment/mongodb",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "./dist"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "html"
-    ],
-    "coverageDirectory": "./coverage/",
-    "resetModules": true
   },
   "license": "MIT",
   "main": "index.js",
@@ -87,13 +79,15 @@
     "build": "npm run clear && babel src --ignore *.spec.js --out-dir dist --copy-files",
     "clear": "rimraf ./dist",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "flow-log": "yarn flow --show-all-errors > flow.log",
     "lint": "eslint src/**",
     "precommit": "lint-staged",
     "repl": "nodemon --config ./repl/nodemon.json ./repl.js --exec babel-node",
     "start": "node dist/index.js",
     "test": "jest --coverage",
+    "jest:lint": "jest --config jest-eslint.config.js",
     "test:watch": "jest --watch --coverage",
     "update-schema": "babel-node ./scripts/updateSchema.js",
-    "watch": "nodemon src/index.js --exec babel-node"
+    "watch": "nodemon src/index.js"
   }
 }

@@ -1,6 +1,9 @@
 // @flow
 import { fromGlobalId, nodeDefinitions } from 'graphql-relay';
+
 import type { GraphQLObjectType } from 'graphql';
+
+import * as loaders from '../loader';
 
 const registeredTypes = {};
 
@@ -11,6 +14,7 @@ export function registerType(type: GraphQLObjectType) {
 
 export const { nodeField, nodeInterface } = nodeDefinitions((globalId, context) => {
   const { type, id } = fromGlobalId(globalId);
-  const loader = context.dataloaders[`${type}Loader`];
-  return (loader && loader.load(id)) || null;
+  const loader = loaders[`${type}Loader`];
+
+  return (loader && loader.load(context, id)) || null;
 }, object => registeredTypes[object.constructor.name] || null);

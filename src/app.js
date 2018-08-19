@@ -3,31 +3,28 @@ import 'isomorphic-fetch';
 
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import convert from 'koa-convert';
 import cors from 'kcors';
 import graphqlHttp from 'koa-graphql';
 import graphqlBatchHttpWrapper from 'koa-graphql-batch';
 import logger from 'koa-logger';
 import Router from 'koa-router';
-// import { print } from 'graphql/language';
 import { graphiqlKoa } from 'apollo-server-koa';
 
 import { schema } from './schema';
-import { jwtSecret, graphqlPort } from './config';
 import { getUser } from './auth';
 import * as loaders from './loader';
 
 const app = new Koa();
 const router = new Router();
 
-app.keys = jwtSecret;
+app.keys = process.env.JWT_KEY;
 
 const graphqlSettingsPerReq = async req => {
   const { user } = await getUser(req.header.authorization);
 
   const dataloaders = Object.keys(loaders).reduce(
-    (dataloaders, loaderKey) => ({
-      ...dataloaders,
+    (acc, loaderKey) => ({
+      ...acc,
       [loaderKey]: loaders[loaderKey].getLoader(),
     }),
     {},
@@ -69,7 +66,7 @@ router.all(
   '/graphiql',
   graphiqlKoa({
     endpointURL: '/graphql',
-    subscriptionsEndpoint: `ws://localhost:${graphqlPort}/subscriptions`,
+    subscriptionsEndpoint: `ws://localhost:${process.env.GRAPHQL_PORT}/subscriptions`,
   }),
 );
 
