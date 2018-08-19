@@ -19,7 +19,7 @@ const router = new Router();
 
 app.keys = process.env.JWT_KEY;
 
-const graphqlSettingsPerReq = async req => {
+const graphqlSettingsPerReq = async (req) => {
   const { user } = await getUser(req.header.authorization);
 
   const dataloaders = Object.keys(loaders).reduce(
@@ -43,7 +43,7 @@ const graphqlSettingsPerReq = async req => {
     // console.log(variables);
     // console.log(result);
     // },
-    formatError: error => {
+    formatError: (error) => {
       console.log(error.message);
       console.log(error.locations);
       console.log(error.stack);

@@ -5,7 +5,7 @@ import { UserConnection } from '../UserType';
 import pubSub, { EVENTS } from '../../../pubSub';
 
 const UserAddedPayloadType = new GraphQLObjectType({
-  name: 'UserAdded',
+  name: 'UserAddedPayload',
   fields: () => ({
     userEdge: {
       type: UserConnection.edgeType,
@@ -14,8 +14,7 @@ const UserAddedPayloadType = new GraphQLObjectType({
         ({
           cursor: offsetToCursor(user.id),
           node: user,
-        })
-      ,
+        }),
     },
   }),
 });
