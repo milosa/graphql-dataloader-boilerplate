@@ -63,21 +63,6 @@
     "repl.history": "^0.1.4",
     "rimraf": "^2.6.2"
   },
-  "jest": {
-    "testEnvironment": "<rootDir>/test/environment/mongodb",
-    "setupTestFrameworkScriptFile": "<rootDir>/test/setupTestFramework.js",
-    "globalSetup": "<rootDir>/test/setup.js",
-    "globalTeardown": "<rootDir>/test/teardown.js",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "./dist"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "html"
-    ],
-    "coverageDirectory": "./coverage/"
-  },
   "license": "MIT",
   "main": "index.js",
   "repository": {
@@ -94,6 +79,7 @@
     "build": "npm run clear && babel src --ignore *.spec.js --out-dir dist --copy-files",
     "clear": "rimraf ./dist",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "flow-log": "yarn flow --show-all-errors > flow.log",
     "lint": "eslint src/**",
     "precommit": "lint-staged",
     "repl": "nodemon --config ./repl/nodemon.json ./repl.js --exec babel-node",
