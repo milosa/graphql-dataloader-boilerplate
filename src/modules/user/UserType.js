@@ -1,10 +1,12 @@
 // @flow
 
-import { GraphQLObjectType, GraphQLString, GraphQLBoolean } from 'graphql';
+import { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLNonNull } from 'graphql';
 import { globalIdField } from 'graphql-relay';
+
+import { connectionDefinitions } from '../../core/connection/CustomConnectionType';
 import { registerType, nodeInterface } from '../../interface/NodeInterface';
 
-export default registerType(
+const UserType = registerType(
   new GraphQLObjectType({
     name: 'User',
     description: 'User data',
@@ -30,3 +32,10 @@ export default registerType(
     interfaces: () => [nodeInterface],
   }),
 );
+
+export default UserType;
+
+export const UserConnection = connectionDefinitions({
+  name: 'User',
+  nodeType: GraphQLNonNull(UserType),
+});
