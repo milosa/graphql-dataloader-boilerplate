@@ -1,9 +1,12 @@
 // @flow
 import DataLoader from 'dataloader';
-import { User as UserModel } from '../../model/index';
 import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongoose-loader';
 
+import type { ObjectId } from 'mongoose';
 import type { ConnectionArguments } from 'graphql-relay';
+
+import UserModel from './UserModel';
+
 import type { GraphQLContext } from '../../TypeDefinition';
 
 type UserType = {
@@ -37,10 +40,7 @@ export default class User {
 
 export const getLoader = () => new DataLoader(ids => mongooseLoader(UserModel, ids));
 
-const viewerCanSee = (context, data) => {
-  // Anyone can see another user
-  return true;
-};
+const viewerCanSee = (/* context, data */) => true;
 
 export const load = async (context: GraphQLContext, id: string): Promise<?User> => {
   if (!id) {
@@ -56,9 +56,12 @@ export const load = async (context: GraphQLContext, id: string): Promise<?User> 
   return viewerCanSee(context, data) ? new User(data, context) : null;
 };
 
-export const clearCache = ({ dataloaders }: GraphQLContext, id: string) => {
-  return dataloaders.UserLoader.clear(id.toString());
-};
+export const clearCache = ({ dataloaders }: GraphQLContext, id: ObjectId) =>
+  dataloaders.UserLoader.clear(id.toString());
+export const primeCache = ({ dataloaders }: GraphQLContext, id: ObjectId, data: UserType) =>
+  dataloaders.UserLoader.prime(id.toString(), data);
+export const clearAndPrimeCache = (context: GraphQLContext, id: ObjectId, data: UserType) =>
+  clearCache(context, id) && primeCache(context, id, data);
 
 export const loadUsers = async (context: GraphQLContext, args: ConnectionArguments) => {
   const where = args.search ? { name: { $regex: new RegExp(`^${args.search}`, 'ig') } } : {};

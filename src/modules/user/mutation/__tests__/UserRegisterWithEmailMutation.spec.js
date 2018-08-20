@@ -2,7 +2,6 @@ import { graphql } from 'graphql';
 
 import UserModel from '../../UserModel';
 import { schema } from '../../../../schema';
-import { generateToken } from '../../../../auth';
 import {
   getContext,
   connectMongoose,

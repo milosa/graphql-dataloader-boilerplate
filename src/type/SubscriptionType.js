@@ -1,11 +1,11 @@
 // external imports
 import { GraphQLObjectType } from 'graphql';
-// local imports
-import UserAdded from '../subscriptions/UserAdded';
+
+import UserSubscriptions from '../modules/user/subscription';
 
 export default new GraphQLObjectType({
   name: 'Subscription',
   fields: {
-    UserAdded,
+    ...UserSubscriptions,
   },
 });

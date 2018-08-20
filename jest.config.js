@@ -12,7 +12,7 @@ module.exports = {
   testEnvironment: '<rootDir>/test/environment/mongodb',
   testPathIgnorePatterns: ignoredPaths,
   coverageReporters: ['lcov', 'html'],
-  coveragePathIgnorePatterns: ignoredPaths,
+  collectCoverageFrom: ['src/**/*.js', '!**/*.spec.js'],
   setupTestFrameworkScriptFile: '<rootDir>/test/setupTestFramework.js',
   globalSetup: '<rootDir>/test/setup.js',
   globalTeardown: '<rootDir>/test/teardown.js',

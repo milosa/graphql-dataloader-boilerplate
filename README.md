@@ -3,11 +3,13 @@
 [![CircleCI](https://circleci.com/gh/entria/graphql-dataloader-boilerplate.svg?style=svg)](https://circleci.com/gh/entria/graphql-dataloader-boilerplate)
 [![codecov](https://codecov.io/gh/entria/graphql-dataloader-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/entria/graphql-dataloader-boilerplate)
 
-Very simple boilerplate using GraphQL and DataLoader
+Boilerplate using GraphQL and DataLoader
 
 ## Blog Posts
 * [How to implement viewerCanSee in  GraphQL](https://medium.com/@sibelius/how-to-implement-viewercansee-in-graphql-78cc48de7464#.d9vpk6fvx)
 * [Testing a GraphQL Server using Jest](https://medium.com/@sibelius/testing-a-graphql-server-using-jest-4e00d0e4980e)
+* [Parallel testing a GraphQL Server with Jest](https://itnext.io/parallel-testing-a-graphql-server-with-jest-44e206f3e7d2)
+* [Encapsulating data on GraphQL using Loaders](https://medium.com/@jonathancardoso/encapsulating-data-on-graphql-using-loaders-9387b805c4fc)
 
 ### Directory Structure
 
@@ -16,11 +18,13 @@ Very simple boilerplate using GraphQL and DataLoader
 ├── /repl/                   # Read-Eval-Print-Loop (REPL) configuration
 ├── /scripts/                # Generate GraphQL schema script
 ├── /src/                    # Source code of GraphQL Server
-│   ├── /connection/         # Connections types (Relay)
-│   ├── /interface/          # NodeInterface (Relay)
-│   ├── /loader/             # Loaders of the models using DataLoader
-│   ├── /model/              # Models definition (Mongoose, SQL, Google DataStore)
-│   ├── /mutation/           # Mutations definition
+│   ├── /core/               # Core types and helper files, can be used like a global module
+│   ├── /interface/          # NodeInterface (Relay) and other GraphQL Interfaces
+│   ├── /modules/            # Modules (think on modules like isolated pieces of your code)
+│   ├── /modules/            # Modules (think on modules like isolated pieces of your code)
+│   │   │── /mutation/       # Module mutations (add an index file to be used on MutationType)
+│   │   │── /subscription/   # Module subscriptions (add an index file to be used on SubscriptionType)
+│   │   │── /enum/           # Enums related to this module
 ├── /test/                   # Test helpers
 ```
 
@@ -98,4 +102,4 @@ Update your schema
 npm run update-schema
 ```
 
-Take a look on the [Schema](https://github.com/sibelius/graphql-dataloader-boilerplate/blob/master/data/schema.graphql)
+Take a look on the [Schema](https://github.com/entria/graphql-dataloader-boilerplate/blob/master/data/schema.graphql)
