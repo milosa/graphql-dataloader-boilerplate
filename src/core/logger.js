@@ -20,9 +20,8 @@ const logger = winston.createLogger({
   ],
 });
 
-export const getConsoleTransport = (label: string) =>
-  new winston.transports.Console({
-    format: consoleFormatter({ label }),
-  });
+export const getConsoleTransport = (label: string) => new winston.transports.Console({
+  format: consoleFormatter({ label }),
+});
 
 export default logger;

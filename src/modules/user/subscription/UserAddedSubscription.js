@@ -9,12 +9,10 @@ const UserAddedPayloadType = new GraphQLObjectType({
   fields: () => ({
     userEdge: {
       type: UserConnection.edgeType,
-      resolve: ({ user }) =>
-        // TODO - figure it out how to get loaders from subscription context
-        ({
-          cursor: offsetToCursor(user.id),
-          node: user,
-        }),
+      resolve: ({ user }) => ({
+        cursor: offsetToCursor(user.id),
+        node: user,
+      }),
     },
   }),
 });
