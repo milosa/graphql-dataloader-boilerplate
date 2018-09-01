@@ -20,9 +20,13 @@ type UserType = {
 
 export default class User {
   id: string;
+
   _id: string;
+
   name: string;
+
   email: string;
+
   active: boolean;
 
   constructor(data: UserType, { user }: GraphQLContext) {
@@ -56,12 +60,9 @@ export const load = async (context: GraphQLContext, id: string): Promise<?User> 
   return viewerCanSee(context, data) ? new User(data, context) : null;
 };
 
-export const clearCache = ({ dataloaders }: GraphQLContext, id: ObjectId) =>
-  dataloaders.UserLoader.clear(id.toString());
-export const primeCache = ({ dataloaders }: GraphQLContext, id: ObjectId, data: UserType) =>
-  dataloaders.UserLoader.prime(id.toString(), data);
-export const clearAndPrimeCache = (context: GraphQLContext, id: ObjectId, data: UserType) =>
-  clearCache(context, id) && primeCache(context, id, data);
+export const clearCache = ({ dataloaders }: GraphQLContext, id: ObjectId) => dataloaders.UserLoader.clear(id.toString());
+export const primeCache = ({ dataloaders }: GraphQLContext, id: ObjectId, data: UserType) => dataloaders.UserLoader.prime(id.toString(), data);
+export const clearAndPrimeCache = (context: GraphQLContext, id: ObjectId, data: UserType) => clearCache(context, id) && primeCache(context, id, data);
 
 export const loadUsers = async (context: GraphQLContext, args: ConnectionArguments) => {
   const where = args.search ? { name: { $regex: new RegExp(`^${args.search}`, 'ig') } } : {};

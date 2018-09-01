@@ -1,5 +1,5 @@
 // @flow
-import 'babel-polyfill';
+import '@babel/polyfill';
 import { createServer } from 'http';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';

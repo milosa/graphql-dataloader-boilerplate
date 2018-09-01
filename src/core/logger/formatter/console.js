@@ -41,5 +41,4 @@ const consoleFormatter = format((info) => {
   return info;
 });
 
-export default (labelOptions: { label: string }) =>
-  combine(label(labelOptions), timestamp(), colorize(), consoleFormatter());
+export default (labelOptions: { label: string }) => combine(label(labelOptions), timestamp(), colorize(), consoleFormatter());
