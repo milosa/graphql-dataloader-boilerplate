@@ -12,7 +12,6 @@ module.exports = {
   testEnvironment: '<rootDir>/test/environment/mongodb',
   testPathIgnorePatterns: ignoredPaths,
   coverageReporters: ['lcov', 'html'],
-  collectCoverageFrom: ['src/**/*.js', '!**/*.spec.js'],
   setupTestFrameworkScriptFile: '<rootDir>/test/setupTestFramework.js',
   globalSetup: '<rootDir>/test/setup.js',
   globalTeardown: '<rootDir>/test/teardown.js',
@@ -27,4 +26,10 @@ module.exports = {
       },
     ],
   ],
+  transform: {
+    '^.+\\.js?$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.ts?$': '<rootDir>/node_modules/babel-jest',
+  },
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js?|ts?)$',
+  moduleFileExtensions: ['ts', 'js'],
 };

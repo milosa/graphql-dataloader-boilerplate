@@ -17,7 +17,7 @@ import * as loaders from './loader';
 const app = new Koa();
 const router = new Router();
 
-app.keys = process.env.JWT_KEY;
+app.keys = [process.env.JWT_KEY];
 
 const graphqlSettingsPerReq = async (req) => {
   const { user } = await getUser(req.header.authorization);
