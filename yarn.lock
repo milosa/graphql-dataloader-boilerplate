@@ -1001,6 +1001,12 @@
   version "23.3.1"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.1.tgz#a4319aedb071d478e6f407d1c4578ec8156829cf"
 
+"@types/kcors@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@types/kcors/-/kcors-2.2.3.tgz#e6532132492173a8681dd85774f380834b96f571"
+  dependencies:
+    "@types/koa" "*"
+
 "@types/keygrip@*":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/keygrip/-/keygrip-1.0.1.tgz#ff540462d2fb4d0a88441ceaf27d287b01c3d878"
@@ -1014,6 +1020,18 @@
 "@types/koa-compose@*", "@types/koa-compose@^3.2.2":
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/@types/koa-compose/-/koa-compose-3.2.2.tgz#dc106e000bbf92a3ac900f756df47344887ee847"
+
+"@types/koa-logger@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@types/koa-logger/-/koa-logger-3.1.0.tgz#133acdbc56d87b5a559cab25528b087381a8fc0d"
+  dependencies:
+    "@types/koa" "*"
+
+"@types/koa-router@^7.0.31":
+  version "7.0.31"
+  resolved "https://registry.yarnpkg.com/@types/koa-router/-/koa-router-7.0.31.tgz#afe279634cca7b4536be38cf641f35f58a4bc5ee"
+  dependencies:
+    "@types/koa" "*"
 
 "@types/koa@*", "@types/koa@^2.0.46":
   version "2.0.46"
@@ -3325,7 +3343,7 @@ fsevents@^1.0.0, fsevents@^1.1.1:
     nan "^2.3.0"
     node-pre-gyp "^0.6.36"
   prebuiltVariants:
-    fsevents-v1.1.2-darwin-x64-57 "0c0eb6b2268bc614bd3f8cf577dc880d8670097e"
+    fsevents-v1.1.2-darwin-x64-57 "640d4aa1eabbc42dd63cfc59697e31395d5c5dbb"
 
 fsevents@^1.2.2:
   version "1.2.4"
@@ -3334,7 +3352,7 @@ fsevents@^1.2.2:
     nan "^2.9.2"
     node-pre-gyp "^0.10.0"
   prebuiltVariants:
-    fsevents-v1.2.4-darwin-x64-57 be20302d6d5584e7175f78a7e7cb351eff2796e1
+    fsevents-v1.2.4-darwin-x64-57 "30aadc4d997da48e499b399d64b928c24a69c11a"
     fsevents-v1.2.4-darwin-x64-64 "9abfa0c8b565164dedbe6e9f753d3d71edadd960"
 
 fstream-ignore@^1.0.5:
@@ -3783,7 +3801,7 @@ husky@^0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
   prebuiltVariants:
-    husky-v0.14.3-darwin-x64-57 "7b4ffc27a8ef5eb3688323064c9049caf5aa010e"
+    husky-v0.14.3-darwin-x64-57 c471ce03964f450e180230034a5f29190dc33b77
     husky-v0.14.3-darwin-x64-64 a5bf7056f9791d6a8d5963664a7fb110f2daf281
 
 iconv-lite@0.4.13:
@@ -5394,7 +5412,7 @@ mongodb-memory-server@^2.1.0:
     tmp "^0.0.33"
     uuid "^3.2.1"
   prebuiltVariants:
-    mongodb-memory-server-v2.1.0-darwin-x64-57 "11e357e788ca322bc3690d137e76fe2bed183cbb"
+    mongodb-memory-server-v2.1.0-darwin-x64-57 e4f67c432d2d8da2e64471a952aa8c4eb0a8a6b5
 
 mongodb@3.1.4:
   version "3.1.4"
@@ -5575,7 +5593,7 @@ nodemon@^1.18.4:
     undefsafe "^2.0.2"
     update-notifier "^2.3.0"
   prebuiltVariants:
-    nodemon-v1.18.4-darwin-x64-57 "6fe752dcdfba45ef0bd090cebe64ef7d261e7b2f"
+    nodemon-v1.18.4-darwin-x64-57 "05b14968425d5149643d46a100127e3cdc9e04b6"
 
 nopt@^4.0.1:
   version "4.0.1"
@@ -6086,7 +6104,7 @@ protobufjs@^6.8.6:
     "@types/node" "^10.1.0"
     long "^4.0.0"
   prebuiltVariants:
-    protobufjs-v6.8.8-darwin-x64-57 "42d57c37d1ced1d7717177fb748c9341a036c5e3"
+    protobufjs-v6.8.8-darwin-x64-57 "5dc55d17236af0f71829feb21a0b0b644dc39d06"
 
 ps-tree@^1.1.0:
   version "1.1.0"

@@ -3,7 +3,9 @@
   "ignore": ["*.spec.js", "flow-typed", "schemas"],
   "delay": 900,
   "watch": "src",
+  "ext": "js,json,ts",
   "execMap": {
-    "js": "babel-node"
+    "js": "babel-node",
+    "ts": "babel-node"
   }
 }
