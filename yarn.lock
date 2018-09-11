@@ -2338,6 +2338,13 @@ create-jest-runner@^0.3.0:
     jest-worker "^22.0.0"
     throat "^4.1.0"
 
+cross-fetch@2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-2.2.2.tgz#a47ff4f7fc712daba8f6a695a11c948440d45723"
+  dependencies:
+    node-fetch "2.1.2"
+    whatwg-fetch "2.0.4"
+
 cross-spawn@^5.0.1, cross-spawn@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
@@ -3385,7 +3392,7 @@ fsevents@^1.0.0, fsevents@^1.1.1:
     nan "^2.3.0"
     node-pre-gyp "^0.6.36"
   prebuiltVariants:
-    fsevents-v1.1.2-darwin-x64-57 "640d4aa1eabbc42dd63cfc59697e31395d5c5dbb"
+    fsevents-v1.1.2-darwin-x64-57 "87348807de29ffa878df08c48228bd0a3f97f793"
 
 fsevents@^1.2.2:
   version "1.2.4"
@@ -3394,7 +3401,7 @@ fsevents@^1.2.2:
     nan "^2.9.2"
     node-pre-gyp "^0.10.0"
   prebuiltVariants:
-    fsevents-v1.2.4-darwin-x64-57 "30aadc4d997da48e499b399d64b928c24a69c11a"
+    fsevents-v1.2.4-darwin-x64-57 ad9663ae33e4dddaaae6ef394d63e26717fe5fe9
     fsevents-v1.2.4-darwin-x64-64 "9abfa0c8b565164dedbe6e9f753d3d71edadd960"
 
 fstream-ignore@^1.0.5:
@@ -3573,15 +3580,49 @@ graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
+graphql-config@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/graphql-config/-/graphql-config-2.0.0.tgz#daf69091055c6f675d63893a2d14c48f3fec3327"
+  dependencies:
+    graphql-import "^0.4.0"
+    graphql-request "^1.4.0"
+    js-yaml "^3.10.0"
+    lodash "^4.17.4"
+    minimatch "^3.0.4"
+
 graphql-extensions@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/graphql-extensions/-/graphql-extensions-0.1.2.tgz#d289cbddcf52364c066d8241a78d359c93c79c30"
   dependencies:
     apollo-server-env "2.0.2"
 
+graphql-import@^0.4.0:
+  version "0.4.5"
+  resolved "http://registry.npmjs.org/graphql-import/-/graphql-import-0.4.5.tgz#e2f18c28d335733f46df8e0733d8deb1c6e2a645"
+  dependencies:
+    lodash "^4.17.4"
+
+graphql-playground-html@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/graphql-playground-html/-/graphql-playground-html-1.6.0.tgz#6ec4d54325ab2e5352506fdb89eb37c3fc718bf8"
+  dependencies:
+    graphql-config "2.0.0"
+
+graphql-playground-middleware-koa@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/graphql-playground-middleware-koa/-/graphql-playground-middleware-koa-1.6.4.tgz#7a54a77d6563e643ef1f3a37c9f9496f84842514"
+  dependencies:
+    graphql-playground-html "1.6.0"
+
 graphql-relay@^0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/graphql-relay/-/graphql-relay-0.5.5.tgz#d6815e6edd618e878d5d921c13fc66033ec867e2"
+
+graphql-request@^1.4.0:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-1.8.2.tgz#398d10ae15c585676741bde3fc01d5ca948f8fbe"
+  dependencies:
+    cross-fetch "2.2.2"
 
 graphql-subscriptions@^0.5.8:
   version "0.5.8"
@@ -3843,7 +3884,7 @@ husky@^0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
   prebuiltVariants:
-    husky-v0.14.3-darwin-x64-57 c471ce03964f450e180230034a5f29190dc33b77
+    husky-v0.14.3-darwin-x64-57 "408d2cb24686ee1f3e404bccd99179c335f695df"
     husky-v0.14.3-darwin-x64-64 a5bf7056f9791d6a8d5963664a7fb110f2daf281
 
 iconv-lite@0.4.13:
@@ -4711,7 +4752,7 @@ js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
 
-js-yaml@^3.12.0:
+js-yaml@^3.10.0, js-yaml@^3.12.0:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
   dependencies:
@@ -5454,7 +5495,7 @@ mongodb-memory-server@^2.1.0:
     tmp "^0.0.33"
     uuid "^3.2.1"
   prebuiltVariants:
-    mongodb-memory-server-v2.1.0-darwin-x64-57 e4f67c432d2d8da2e64471a952aa8c4eb0a8a6b5
+    mongodb-memory-server-v2.1.0-darwin-x64-57 "7a2f2e01694832c19f6b0a4cd3610cecd3a3010f"
 
 mongodb@3.1.4:
   version "3.1.4"
@@ -5556,6 +5597,10 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
 
+node-fetch@2.1.2:
+  version "2.1.2"
+  resolved "http://registry.npmjs.org/node-fetch/-/node-fetch-2.1.2.tgz#ab884e8e7e57e38a944753cec706f788d1768bb5"
+
 node-fetch@^1.0.1:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
@@ -5635,7 +5680,7 @@ nodemon@^1.18.4:
     undefsafe "^2.0.2"
     update-notifier "^2.3.0"
   prebuiltVariants:
-    nodemon-v1.18.4-darwin-x64-57 "05b14968425d5149643d46a100127e3cdc9e04b6"
+    nodemon-v1.18.4-darwin-x64-57 "21cf2ddb8cd7af666792b661e44116c5d903ce91"
 
 nopt@^4.0.1:
   version "4.0.1"
@@ -6146,7 +6191,7 @@ protobufjs@^6.8.6:
     "@types/node" "^10.1.0"
     long "^4.0.0"
   prebuiltVariants:
-    protobufjs-v6.8.8-darwin-x64-57 "5dc55d17236af0f71829feb21a0b0b644dc39d06"
+    protobufjs-v6.8.8-darwin-x64-57 "675483dff3730816e7e34d439485f43c4fbbc98b"
 
 ps-tree@^1.1.0:
   version "1.1.0"
@@ -7532,6 +7577,10 @@ whatwg-encoding@^1.0.1:
   resolved "https://registry.yarnpkg.com/whatwg-encoding/-/whatwg-encoding-1.0.2.tgz#bd68ad169c3cf55080562257714bf012e668a165"
   dependencies:
     iconv-lite "0.4.13"
+
+whatwg-fetch@2.0.4:
+  version "2.0.4"
+  resolved "http://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
 
 whatwg-fetch@>=0.10.0:
   version "2.0.3"
