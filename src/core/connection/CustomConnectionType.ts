@@ -1,7 +1,14 @@
-// @flow
-import { GraphQLObjectType, GraphQLNonNull, GraphQLList, GraphQLString, GraphQLBoolean, GraphQLInt } from 'graphql';
-
-import type { GraphQLFieldConfigArgumentMap, GraphQLFieldConfigMap, GraphQLFieldResolver, Thunk } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLNonNull,
+  GraphQLList,
+  GraphQLString,
+  GraphQLBoolean,
+  GraphQLInt,
+  GraphQLFieldConfigArgumentMap,
+  Thunk,
+} from 'graphql';
+import { ConnectionConfig, GraphQLConnectionDefinitions } from 'graphql-relay';
 
 export const forwardConnectionArgs: GraphQLFieldConfigArgumentMap = {
   after: {
@@ -24,20 +31,6 @@ export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap = {
 export const connectionArgs: GraphQLFieldConfigArgumentMap = {
   ...forwardConnectionArgs,
   ...backwardConnectionArgs,
-};
-
-type ConnectionConfig = {
-  name?: ?string,
-  nodeType: GraphQLObjectType,
-  resolveNode?: ?GraphQLFieldResolver<*, *>,
-  resolveCursor?: ?GraphQLFieldResolver<*, *>,
-  edgeFields?: ?Thunk<GraphQLFieldConfigMap<*, *>>,
-  connectionFields?: ?Thunk<GraphQLFieldConfigMap<*, *>>,
-};
-
-type GraphQLConnectionDefinitions = {
-  edgeType: GraphQLObjectType,
-  connectionType: GraphQLObjectType,
 };
 
 const pageInfoType = new GraphQLObjectType({
@@ -87,7 +80,8 @@ export function connectionDefinitions(config: ConnectionConfig): GraphQLConnecti
         resolve: resolveCursor,
         description: 'A cursor for use in pagination',
       },
-      ...(resolveMaybeThunk(edgeFields): any),
+      // as any
+      ...(resolveMaybeThunk(edgeFields))
     }),
   });
 
@@ -123,7 +117,8 @@ export function connectionDefinitions(config: ConnectionConfig): GraphQLConnecti
         type: GraphQLNonNull(GraphQLList(edgeType)),
         description: 'A list of edges.',
       },
-      ...(resolveMaybeThunk(connectionFields): any),
+      // as any
+      ...(resolveMaybeThunk(connectionFields)),
     }),
   });
 

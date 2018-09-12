@@ -1,9 +1,7 @@
-// @flow
-
-import mongoose from 'mongoose';
+import mongoose, { Document, Model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const Schema = new mongoose.Schema(
+const schema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -32,7 +30,17 @@ const Schema = new mongoose.Schema(
   },
 );
 
-Schema.pre('save', function encryptPasswordHook(next) {
+export interface IUser extends Document {
+  name: string;
+  password?: string;
+  email: string;
+  active: boolean;
+  authenticate: (plainTextPassword: string) => boolean;
+  encryptPassword: (password: string | undefined) => string;
+}
+
+// schema.pre<IUser>('save', function encryptPasswordHook(next) {
+schema.pre('save', function encryptPasswordHook(next) {
   // Hash the password
   if (this.isModified('password')) {
     this.password = this.encryptPassword(this.password);
@@ -41,13 +49,16 @@ Schema.pre('save', function encryptPasswordHook(next) {
   return next();
 });
 
-Schema.methods = {
-  authenticate(plainTextPassword) {
+schema.methods = {
+  authenticate(plainTextPassword: string) {
     return bcrypt.compareSync(plainTextPassword, this.password);
   },
-  encryptPassword(password) {
+  encryptPassword(password: string) {
     return bcrypt.hashSync(password, 8);
   },
 };
 
-export default mongoose.model('User', Schema);
+// this will make find, findOne typesafe
+const UserModel: Model<IUser> = mongoose.model('User', schema);
+
+export default UserModel;
