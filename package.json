@@ -55,6 +55,7 @@
     "@babel/plugin-transform-flow-strip-types": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-typescript": "^7.0.0",
     "@types/bcryptjs": "^2.4.1",
     "@types/graphql-relay": "^0.4.6",
     "@types/kcors": "^2.2.3",
@@ -84,7 +85,8 @@
     "repl-promised": "^0.1.0",
     "repl.history": "^0.1.4",
     "rimraf": "^2.6.2",
-    "typescript": "^3.0.3"
+    "typescript": "^3.0.3",
+    "typescript-eslint-parser": "^18.0.0"
   },
   "license": "MIT",
   "lint-staged": {
@@ -95,7 +97,6 @@
     ],
     "*.ts": [
       "yarn prettier",
-      "eslint --fix",
       "git add"
     ]
   },

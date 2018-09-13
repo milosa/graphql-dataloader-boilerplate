@@ -542,6 +542,12 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
 
+"@babel/plugin-syntax-typescript@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-typescript/-/plugin-syntax-typescript-7.0.0.tgz#90f4fe0a741ae9c0dcdc3017717c05a0cbbd5158"
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.0.0"
+
 "@babel/plugin-transform-arrow-functions@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-arrow-functions/-/plugin-transform-arrow-functions-7.0.0.tgz#a6c14875848c68a3b4b3163a486535ef25c7e749"
@@ -729,6 +735,13 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
 
+"@babel/plugin-transform-typescript@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.0.0.tgz#71bf13cae08117ae5dc1caec5b90938d8091a01e"
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.0.0"
+    "@babel/plugin-syntax-typescript" "^7.0.0"
+
 "@babel/plugin-transform-unicode-regex@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-unicode-regex/-/plugin-transform-unicode-regex-7.0.0.tgz#c6780e5b1863a76fe792d90eded9fcd5b51d68fc"
@@ -796,6 +809,13 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-flow-strip-types" "^7.0.0"
+
+"@babel/preset-typescript@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.0.0.tgz#1e65c8b863ff5b290f070d999c810bb48a8e3904"
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.0.0"
+    "@babel/plugin-transform-typescript" "^7.0.0"
 
 "@babel/register@^7.0.0":
   version "7.0.0"
@@ -3392,7 +3412,7 @@ fsevents@^1.0.0, fsevents@^1.1.1:
     nan "^2.3.0"
     node-pre-gyp "^0.6.36"
   prebuiltVariants:
-    fsevents-v1.1.2-darwin-x64-57 "87348807de29ffa878df08c48228bd0a3f97f793"
+    fsevents-v1.1.2-darwin-x64-57 "875c49e9f81d9316954b5ff7ad7c953019ce0079"
 
 fsevents@^1.2.2:
   version "1.2.4"
@@ -3401,7 +3421,7 @@ fsevents@^1.2.2:
     nan "^2.9.2"
     node-pre-gyp "^0.10.0"
   prebuiltVariants:
-    fsevents-v1.2.4-darwin-x64-57 ad9663ae33e4dddaaae6ef394d63e26717fe5fe9
+    fsevents-v1.2.4-darwin-x64-57 "882271199eb337dfda731ae11c42f79682b7018d"
     fsevents-v1.2.4-darwin-x64-64 "9abfa0c8b565164dedbe6e9f753d3d71edadd960"
 
 fstream-ignore@^1.0.5:
@@ -3884,7 +3904,7 @@ husky@^0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
   prebuiltVariants:
-    husky-v0.14.3-darwin-x64-57 "408d2cb24686ee1f3e404bccd99179c335f695df"
+    husky-v0.14.3-darwin-x64-57 "10050b544098af531f45416d230f39d8a3366584"
     husky-v0.14.3-darwin-x64-64 a5bf7056f9791d6a8d5963664a7fb110f2daf281
 
 iconv-lite@0.4.13:
@@ -5210,6 +5230,10 @@ lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
 
+lodash.unescape@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.unescape/-/lodash.unescape-4.0.1.tgz#bf2249886ce514cda112fae9218cdc065211fc9c"
+
 lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
@@ -5495,7 +5519,7 @@ mongodb-memory-server@^2.1.0:
     tmp "^0.0.33"
     uuid "^3.2.1"
   prebuiltVariants:
-    mongodb-memory-server-v2.1.0-darwin-x64-57 "7a2f2e01694832c19f6b0a4cd3610cecd3a3010f"
+    mongodb-memory-server-v2.1.0-darwin-x64-57 "8974859327bd86530ea4b4d4bd932c0f06bc6881"
 
 mongodb@3.1.4:
   version "3.1.4"
@@ -5680,7 +5704,7 @@ nodemon@^1.18.4:
     undefsafe "^2.0.2"
     update-notifier "^2.3.0"
   prebuiltVariants:
-    nodemon-v1.18.4-darwin-x64-57 "21cf2ddb8cd7af666792b661e44116c5d903ce91"
+    nodemon-v1.18.4-darwin-x64-57 "91f17b0d780da654a319b0d0885c36ddce88ddea"
 
 nopt@^4.0.1:
   version "4.0.1"
@@ -6191,7 +6215,7 @@ protobufjs@^6.8.6:
     "@types/node" "^10.1.0"
     long "^4.0.0"
   prebuiltVariants:
-    protobufjs-v6.8.8-darwin-x64-57 "675483dff3730816e7e34d439485f43c4fbbc98b"
+    protobufjs-v6.8.8-darwin-x64-57 "639b733cb62f79f0ead510f57ab9d6c1c6b086d4"
 
 ps-tree@^1.1.0:
   version "1.1.0"
@@ -6752,7 +6776,7 @@ semver-diff@^2.0.0:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
 
-semver@^5.5.0:
+semver@5.5.0, semver@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
@@ -7369,6 +7393,13 @@ type-is@^1.6.16, type-is@~1.6.6:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+
+typescript-eslint-parser@^18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/typescript-eslint-parser/-/typescript-eslint-parser-18.0.0.tgz#3e5055a44980d69e4154350fc5d8b1ab4e2332a8"
+  dependencies:
+    lodash.unescape "4.0.1"
+    semver "5.5.0"
 
 typescript@^3.0.3:
   version "3.0.3"

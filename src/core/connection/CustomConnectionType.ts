@@ -81,7 +81,7 @@ export function connectionDefinitions(config: ConnectionConfig): GraphQLConnecti
         description: 'A cursor for use in pagination',
       },
       // as any
-      ...(resolveMaybeThunk(edgeFields))
+      ...(resolveMaybeThunk(edgeFields) as any),
     }),
   });
 
@@ -118,7 +118,7 @@ export function connectionDefinitions(config: ConnectionConfig): GraphQLConnecti
         description: 'A list of edges.',
       },
       // as any
-      ...(resolveMaybeThunk(connectionFields)),
+      ...(resolveMaybeThunk(connectionFields) as any),
     }),
   });
 
