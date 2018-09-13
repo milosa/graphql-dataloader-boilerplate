@@ -39,8 +39,7 @@ export interface IUser extends Document {
   encryptPassword: (password: string | undefined) => string;
 }
 
-// schema.pre<IUser>('save', function encryptPasswordHook(next) {
-schema.pre('save', function encryptPasswordHook(next) {
+schema.pre<IUser>('save', function encryptPasswordHook(next) {
   // Hash the password
   if (this.isModified('password')) {
     this.password = this.encryptPassword(this.password);
