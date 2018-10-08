@@ -18,6 +18,7 @@ const mongooseOptions = {
   autoIndex: false,
   autoReconnect: false,
   connectTimeoutMS: 10000,
+  useNewUrlParser: true,
 };
 
 // Just in case want to debug something
@@ -25,10 +26,13 @@ const mongooseOptions = {
 
 export async function connectMongoose() {
   jest.setTimeout(20000);
-  return mongoose.connect(global.__MONGO_URI__, {
-    ...mongooseOptions,
-    dbName: global.__MONGO_DB_NAME__,
-  });
+  return mongoose.connect(
+    global.__MONGO_URI__,
+    {
+      ...mongooseOptions,
+      dbName: global.__MONGO_DB_NAME__,
+    },
+  );
 }
 
 export async function clearDatabase() {
@@ -37,21 +41,21 @@ export async function clearDatabase() {
 
 export async function disconnectMongoose() {
   await mongoose.disconnect();
-  mongoose.connections.forEach(connection => {
+  mongoose.connections.forEach((connection) => {
     const modelNames = Object.keys(connection.models);
 
-    modelNames.forEach(modelName => {
+    modelNames.forEach((modelName) => {
       delete connection.models[modelName];
     });
 
     const collectionNames = Object.keys(connection.collections);
-    collectionNames.forEach(collectionName => {
+    collectionNames.forEach((collectionName) => {
       delete connection.collections[collectionName];
     });
   });
 
   const modelSchemaNames = Object.keys(mongoose.modelSchemas);
-  modelSchemaNames.forEach(modelSchemaName => {
+  modelSchemaNames.forEach((modelSchemaName) => {
     delete mongoose.modelSchemas[modelSchemaName];
   });
 }
