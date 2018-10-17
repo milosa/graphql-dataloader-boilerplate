@@ -21,7 +21,6 @@ Boilerplate using GraphQL and DataLoader
 │   ├── /core/               # Core types and helper files, can be used like a global module
 │   ├── /interface/          # NodeInterface (Relay) and other GraphQL Interfaces
 │   ├── /modules/            # Modules (think on modules like isolated pieces of your code)
-│   ├── /modules/            # Modules (think on modules like isolated pieces of your code)
 │   │   │── /mutation/       # Module mutations (add an index file to be used on MutationType)
 │   │   │── /subscription/   # Module subscriptions (add an index file to be used on SubscriptionType)
 │   │   │── /enum/           # Enums related to this module
@@ -56,7 +55,7 @@ Or
 npm run test:watch
 ```
 
-#### Docker and docker-compose
+### Docker and docker-compose
 No needs for installing dependencies or running `mongod` in another terminal window
 
 ```bash
@@ -68,7 +67,7 @@ Test
 docker-compose -f docker-compose.test.yml build && docker-compose -f docker-compose.test.yml up
 ```
 
-#### Production
+### Production
 ```bash
 # first compile the code
 npm run build
