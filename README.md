@@ -37,7 +37,7 @@ If you want to move faster you should use [create-graphql](https://github.com/lu
 
 #### Setup
 ```bash
-npm install
+yarn install
 ```
 Note: If you do not have mongodb installed, please install it:
 ```bash
@@ -45,17 +45,17 @@ brew install mongodb
 ```
 #### Develop
 ```bash
-npm run watch
+yarn watch
 ```
 
 ### Test
 ```bash
-npm test
+yarn test
 ```
 
 Or
 ```bash
-npm run test:watch
+yarn test:watch
 ```
 
 ### Docker and docker-compose
@@ -73,15 +73,15 @@ docker-compose -f docker-compose.test.yml build && docker-compose -f docker-comp
 ### Production
 ```bash
 # first compile the code
-npm run build
+yarn build
 
 # run graphql compiled server
-npm start
+yarn start
 ```
 
 ### Flow
 ```bash
-npm run flow
+yarn flow
 ```
 
 Or
@@ -91,7 +91,7 @@ flow
 
 ### REPL server
 ```bash
-npm run repl
+yarn repl
 
 awesome > const user = await M.User.find()
 ```
@@ -101,7 +101,7 @@ Yep, await syntax works on the repl, it is awesome, tks @princejwesley (https://
 ### Schema
 Update your schema
 ```bash
-npm run update-schema
+yarn update-schema
 ```
 
 Take a look on the [Schema](https://github.com/entria/graphql-dataloader-boilerplate/blob/master/data/schema.graphql)
